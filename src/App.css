@@ -1,0 +1,7 @@
+/* ... (style Anda yang lain mungkin ada di sini) ... */
+
+/* KELAS BARU UNTUK MENCEGAH SCROLLING */
+body.body-no-scroll {
+    overflow: hidden;
+  }
+  

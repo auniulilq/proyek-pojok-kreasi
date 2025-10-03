@@ -1,0 +1,163 @@
+/* Container Utama */
+.log-pilahan-container {
+    padding: 20px;
+    background-color: #f4f7f6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .log-pilahan-container h2 {
+    color: #004d40;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  /* Kartu-kartu utama */
+  .card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+  }
+  
+  /* Kartu Ringkasan Kontribusi */
+  .summary-card p {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #004d40;
+    display: flex;
+    align-items: center;
+  }
+  
+  .summary-card .icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: #26a69a;
+  }
+  
+  .progress-bar-container {
+    margin-top: 15px;
+  }
+  
+  .progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 20px;
+    height: 20px;
+    overflow: hidden;
+  }
+  
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, #26a69a, #00796b);
+    transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+  
+  .progress-label {
+    font-size: 0.9em;
+    margin-top: 8px;
+    color: #555;
+    text-align: right;
+  }
+  
+  /* Formulir Input */
+  .pilahan-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .pilahan-form select, .pilahan-form input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .pilahan-form button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #00796b;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .pilahan-form button:hover:not(:disabled) {
+    background-color: #004d40;
+    transform: translateY(-2px);
+  }
+  
+  .pilahan-form button:disabled {
+    background-color: #9e9e9e;
+    cursor: not-allowed;
+  }
+  
+  /* Daftar Pilahan (Aktif & Arsip) */
+  .pilahan-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .pilahan-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+  }
+  
+  .pilahan-item:last-child {
+    border-bottom: none;
+  }
+  
+  .pilahan-item:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .pilahan-item .icon {
+    font-size: 1.5em;
+    margin-right: 15px;
+    color: #ff9800; /* Oranye untuk aktif */
+  }
+  
+  .pilahan-item.archived .icon {
+    color: #4CAF50; /* Hijau untuk arsip */
+  }
+  
+  .pilahan-details {
+    flex-grow: 1;
+  }
+  
+  .pilahan-details strong {
+    color: #333;
+  }
+  
+  .pilahan-info {
+    font-size: 0.9em;
+    color: #757575;
+  }
+  
+  .pilahan-poin {
+    font-weight: bold;
+    color: #26a69a;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #757575;
+    font-style: italic;
+  }

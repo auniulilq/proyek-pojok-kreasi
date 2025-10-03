@@ -1,0 +1,23 @@
+/* ==================================== */
+/* INDEX GLOBAL RESET                   */
+/* ==================================== */
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    }
+    
+    body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: #ffffff;
+    color: #222;
+    
+    overflow-x: hidden; /* Penting untuk cegah geser ke samping */
+    box-sizing: border-box;
+    }
+    
+    *, *::before, *::after {
+    box-sizing: inherit;
+    }
+    
