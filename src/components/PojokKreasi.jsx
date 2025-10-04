@@ -1,40 +1,75 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { proyekList } from '../data/proyekData';
 import './PojokKreasi.css';
+import ReactMarkdown from 'react-markdown';
 
-// Fungsi untuk mengubah URL YouTube
+// Fungsi untuk mengubah URL YouTube yang sudah disempurnakan
 const getYouTubeEmbedUrl = (url) => {
   if (!url) return null;
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const regExp = /(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|shorts\/|)([a-zA-Z0-9_-]{11})(?:\S+)?/;
   const match = url.match(regExp);
-  if (match && match[2].length === 11) {
-    return `https://www.youtube-nocookie.com/embed/${match[2]}`;
+  if (match && match[1].length === 11) {
+    return `https://www.youtube-nocookie.com/embed/${match[1]}`;
   }
   return null;
 };
 
 const PojokKreasi = () => {
+  // State untuk filter dan pencarian
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('Semua');
   const [difficultyFilter, setDifficultyFilter] = useState('Semua');
   
+  // State untuk modal detail proyek
   const [showModal, setShowModal] = useState(false);
   const [selectedProyek, setSelectedProyek] = useState(null);
 
-  // State untuk Chatbot
+  // State untuk chatbot
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatMessages, setChatMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [isBotTyping, setIsBotTyping] = useState(false);
 
-  // Mengambil daftar kategori unik dari data
-  const categories = useMemo(() => 
-    ['Semua', ...new Set(proyekList.map(p => p.kategori))]
-  , []);
-  
+  // State untuk riwayat chat dengan localStorage (versi aman)
+  const [chatMessages, setChatMessages] = useState(() => {
+    try {
+      const savedChat = localStorage.getItem('chatHistory');
+      if (savedChat) {
+        return JSON.parse(savedChat);
+      }
+      return [];
+    } catch (error) {
+      console.error("Data chat rusak, membersihkan localStorage:", error);
+      localStorage.removeItem('chatHistory');
+      return [];
+    }
+  });
+
+  // Efek untuk mengunci scroll body saat modal terbuka
+  useEffect(() => {
+    const isAnyModalOpen = showModal || isChatOpen;
+    if (isAnyModalOpen) {
+      document.body.classList.add('body-no-scroll');
+    } else {
+      document.body.classList.remove('body-no-scroll');
+    }
+    return () => {
+      document.body.classList.remove('body-no-scroll');
+    };
+  }, [showModal, isChatOpen]);
+
+  // Efek untuk menyimpan riwayat chat ke localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('chatHistory', JSON.stringify(chatMessages));
+    } catch (error) {
+      console.error("Gagal menyimpan data chat ke localStorage:", error);
+    }
+  }, [chatMessages]);
+
+  // Logika untuk filter proyek
+  const categories = useMemo(() => ['Semua', ...new Set(proyekList.map(p => p.kategori))], []);
   const difficulties = ['Semua', 'Sangat Mudah', 'Mudah', 'Menengah', 'Sulit'];
 
-  // Logika filter gabungan
   const filteredProyek = useMemo(() => {
     return proyekList.filter(proyek => {
       const matchesCategory = categoryFilter === 'Semua' || proyek.kategori === categoryFilter;
@@ -44,6 +79,7 @@ const PojokKreasi = () => {
     });
   }, [searchQuery, categoryFilter, difficultyFilter]);
 
+  // Fungsi-fungsi handler
   const handleCardClick = (proyek) => {
     setSelectedProyek(proyek);
     setShowModal(true);
@@ -54,7 +90,13 @@ const PojokKreasi = () => {
     setSelectedProyek(null);
   };
 
-  // --- Logika Chatbot ---
+  const openChat = () => {
+    setIsChatOpen(true);
+    if (chatMessages.length === 0) {
+      setChatMessages([{ sender: 'bot', text: "Halo! Punya pertanyaan seputar daur ulang atau proyek di sini?" }]);
+    }
+  };
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!userInput.trim() || isBotTyping) return;
@@ -65,10 +107,8 @@ const PojokKreasi = () => {
     const userQuery = userInput;
     setUserInput('');
 
-    const systemPrompt = `Anda adalah "Ahli Daur Ulang", chatbot yang ramah. Jawab pertanyaan seputar daur ulang, guna ulang (reuse), eco enzyme, dan pilah sampah. Jika topik di luar itu, tolak dengan sopan. Gunakan bahasa Indonesia yang santai.`;
-    
+    const systemPrompt = `Anda adalah "Ahli Daur Ulang", chatbot yang ramah. Jawab pertanyaan seputar daur ulang, guna ulang (reuse), eco enzyme, dan pilah sampah. Jika topik di luar itu, tolak dengan sopan. Gunakan bahasa Indonesia yang santai. PENTING: Gunakan format Markdown untuk membuat jawaban lebih mudah dibaca, seperti **teks tebal** untuk poin penting, dan daftar bernomor atau berpoin untuk langkah-langkah atau contoh.`;
     const apiUrl = '/.netlify/functions/askAI';
-    
     const payload = { userQuery, systemPrompt };
 
     try {
@@ -84,12 +124,6 @@ const PojokKreasi = () => {
       setIsBotTyping(false);
     }
   };
-
-  const openChat = () => {
-    setIsChatOpen(true);
-    setChatMessages([{ sender: 'bot', text: "Halo! Punya pertanyaan seputar daur ulang atau proyek di sini?" }]);
-  };
-
 
   return (
     <div className="pojok-kreasi-container">
@@ -128,24 +162,20 @@ const PojokKreasi = () => {
       </div>
 
       <div className="proyek-grid">
-        {filteredProyek.length > 0 ? (
-            filteredProyek.map((proyek) => (
-            <div key={proyek.id} className="proyek-card" onClick={() => handleCardClick(proyek)}>
-              <div className="proyek-image-container">
-                <img src={proyek.gambar} alt={proyek.judul} />
-              </div>
-              <div className="proyek-info">
-                <h3>{proyek.judul}</h3>
-                <div className="proyek-tags">
-                  <span className="tag tag-kategori">{proyek.kategori}</span>
-                  <span className="tag tag-kesulitan">{proyek.kesulitan}</span>
-                </div>
+        {filteredProyek.map((proyek) => (
+          <div key={proyek.id} className="proyek-card" onClick={() => handleCardClick(proyek)}>
+            <div className="proyek-image-container">
+              <img src={proyek.gambar} alt={proyek.judul} />
+            </div>
+            <div className="proyek-info">
+              <h3>{proyek.judul}</h3>
+              <div className="proyek-tags">
+                <span className="tag">{proyek.kategori}</span>
+                <span className="tag">{proyek.kesulitan}</span>
               </div>
             </div>
-            ))
-        ) : (
-            <p className="no-results">Oops! Tidak ada proyek yang cocok dengan pencarianmu.</p>
-        )}
+          </div>
+        ))}
       </div>
 
       <button className="floating-chat-btn" onClick={openChat}>
@@ -155,15 +185,18 @@ const PojokKreasi = () => {
       {showModal && selectedProyek && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <a href={selectedProyek.videoUrl} target="_blank" rel="noopener noreferrer" className="video-fallback-link">
-              <div className="video-fallback-container">
-                <img src={selectedProyek.gambar} alt={selectedProyek.judul} />
-                <div className="play-button-overlay">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-              </div>
-            </a>
-            
+            <div className="video-embed-container">
+              <iframe
+                width="100%"
+                height="100%"
+                src={getYouTubeEmbedUrl(selectedProyek.videoUrl)}
+                title={selectedProyek.judul}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              ></iframe>
+            </div>
             <div className="modal-body">
               <h3>{selectedProyek.judul}</h3>
               <p>{selectedProyek.deskripsi}</p>
@@ -172,11 +205,11 @@ const PojokKreasi = () => {
                 <p><strong>Estimasi Waktu:</strong> {selectedProyek.durasi}</p>
               </div>
             </div>
-              <button className="modal-close-btn" onClick={closeModal}>×</button>
+            <button className="modal-close-btn" onClick={closeModal}>×</button>
           </div>
         </div>
       )}
-
+      
       {isChatOpen && (
         <div className="chat-modal-overlay" onClick={() => setIsChatOpen(false)}>
           <div className="chat-window" onClick={(e) => e.stopPropagation()}>
@@ -185,9 +218,11 @@ const PojokKreasi = () => {
               <button className="chat-close-btn" onClick={() => setIsChatOpen(false)}>×</button>
             </div>
             <div className="chat-body">
-              {chatMessages.map((msg, index) => (
-                <div key={index} className={`chat-message ${msg.sender}`}>{msg.text}</div>
-              ))}
+            {chatMessages.map((msg, index) => (
+    <div key={index} className={`chat-message ${msg.sender}`}>
+      <ReactMarkdown>{msg.text}</ReactMarkdown>
+    </div>
+  ))}
               {isBotTyping && (
                 <div className="chat-message bot typing">
                   <span></span><span></span><span></span>

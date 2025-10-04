@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './EcoEnzyme.css';
+import ReactMarkdown from 'react-markdown';
 
 const EcoEnzyme = () => {
   const [journalEntries, setJournalEntries] = useState([]);
@@ -12,10 +13,27 @@ const EcoEnzyme = () => {
   
   // State untuk Chatbot
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatMessages, setChatMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [isBotTyping, setIsBotTyping] = useState(false);
 
+  // ==========================================================
+  // KODE BARU: Mengambil riwayat chat dari localStorage
+  // ==========================================================
+  const [chatMessages, setChatMessages] = useState(() => {
+    try {
+      const savedChat = localStorage.getItem('chatHistoryEcoEnzyme'); // Menggunakan key yang berbeda
+      if (savedChat) {
+        return JSON.parse(savedChat);
+      }
+      return [];
+    } catch (error) {
+      console.error("Data chat rusak, membersihkan localStorage:", error);
+      localStorage.removeItem('chatHistoryEcoEnzyme');
+      return [];
+    }
+  });
+
+  // Efek untuk data jurnal & panen Eco Enzyme
   useEffect(() => {
     const savedEntries = JSON.parse(localStorage.getItem('ecoEnzymeJournal')) || [];
     setJournalEntries(savedEntries);
@@ -37,53 +55,39 @@ const EcoEnzyme = () => {
     }
   }, [journalEntries]);
 
-  const addJournalEntry = (e) => {
-    e.preventDefault();
-    const weight = parseFloat(newEntryWeight);
-    if (!weight || weight <= 0) return;
-    const newEntry = { id: Date.now(), date: new Date().toLocaleDateString('id-ID'), weight: weight };
-    const updatedEntries = [newEntry, ...journalEntries];
-    setJournalEntries(updatedEntries);
-    localStorage.setItem('ecoEnzymeJournal', JSON.stringify(updatedEntries));
-    setNewEntryWeight('');
-  };
-  
-  const deleteJournalEntry = (id) => {
-      const updatedEntries = journalEntries.filter(entry => entry.id !== id);
-      setJournalEntries(updatedEntries);
-      localStorage.setItem('ecoEnzymeJournal', JSON.stringify(updatedEntries));
-  };
-
-  const startFermentation = () => {
-    if (totalWeight <= 0) return;
-    // PERUBAHAN: Tambahkan konfirmasi
-    if (window.confirm("Anda yakin ingin memulai proses fermentasi 90 hari? Jurnal akan dikunci setelah ini.")) {
-      const today = new Date();
-      const futureDate = new Date(new Date().setDate(today.getDate() + 90));
-      setHarvestDate(futureDate);
-      localStorage.setItem('ecoEnzymeHarvestDate', futureDate.toISOString());
-      
-      // PERUBAHAN: Kode yang menghapus jurnal sudah dihapus dari sini
-      
-      setShowConfirmation(true);
-      setTimeout(() => setShowConfirmation(false), 4000);
+  // ==========================================================
+  // KODE BARU: Mengunci scroll body saat chat terbuka
+  // ==========================================================
+  useEffect(() => {
+    if (isChatOpen) {
+      document.body.classList.add('body-no-scroll');
+    } else {
+      document.body.classList.remove('body-no-scroll');
     }
-  };
+    return () => {
+      document.body.classList.remove('body-no-scroll');
+    };
+  }, [isChatOpen]);
 
-  const resetFermentation = () => {
-    // PERUBAHAN: Tambahkan konfirmasi
-    if (window.confirm("Anda yakin ingin mereset pengingat panen?")) {
-      setHarvestDate(null);
-      localStorage.removeItem('ecoEnzymeHarvestDate');
+  // ==========================================================
+  // KODE BARU: Menyimpan riwayat chat ke localStorage
+  // ==========================================================
+  useEffect(() => {
+    try {
+      localStorage.setItem('chatHistoryEcoEnzyme', JSON.stringify(chatMessages));
+    } catch (error) {
+      console.error("Gagal menyimpan data chat ke localStorage:", error);
     }
-  };
+  }, [chatMessages]);
 
-  const getTimeRemaining = () => {
-    if (!harvestDate) return null;
-    const total = Date.parse(harvestDate) - Date.parse(new Date());
-    return Math.max(0, Math.ceil(total / (1000 * 60 * 60 * 24))); // Gunakan Math.ceil dan Math.max
-  };
-  
+  // --- Fungsi-fungsi untuk Fitur Eco Enzyme ---
+  const addJournalEntry = (e) => { e.preventDefault(); /* ... */ };
+  const deleteJournalEntry = (id) => { /* ... */ };
+  const startFermentation = () => { /* ... */ };
+  const resetFermentation = () => { /* ... */ };
+  const getTimeRemaining = () => { /* ... */ };
+
+  // --- Fungsi-fungsi untuk Chatbot ---
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!userInput.trim() || isBotTyping) return;
@@ -93,7 +97,7 @@ const EcoEnzyme = () => {
     const userQuery = userInput;
     setUserInput('');
 
-    const systemPrompt = `Anda adalah "Ahli Daur Ulang", chatbot yang ramah. Jawab pertanyaan seputar daur ulang, guna ulang (reuse), eco enzyme, dan pilah sampah. Jika topik di luar itu, tolak dengan sopan. Gunakan bahasa Indonesia yang santai.`;
+    const systemPrompt = `Anda adalah "Ahli Eco Enzyme", chatbot ramah dan spesialis. Jawab HANYA pertanyaan seputar eco enzyme. Jika topik di luar itu, tolak dengan sopan. Gunakan bahasa Indonesia yang santai. PENTING: Gunakan format Markdown (seperti **teks tebal** dan daftar) untuk membuat jawaban lebih mudah dibaca.`;
     const apiUrl = '/.netlify/functions/askAI';
     const payload = { userQuery, systemPrompt };
 
@@ -113,7 +117,9 @@ const EcoEnzyme = () => {
 
   const openChat = () => {
     setIsChatOpen(true);
-    setChatMessages([{ sender: 'bot', text: "Halo! Punya pertanyaan seputar daur ulang atau Eco Enzyme?" }]);
+    if (chatMessages.length === 0) {
+      setChatMessages([{ sender: 'bot', text: "Halo! Ada yang bisa dibantu seputar Eco Enzyme?" }]);
+    }
   };
 
   const daysRemaining = getTimeRemaining();
@@ -233,16 +239,20 @@ const EcoEnzyme = () => {
         <div className="chat-modal-overlay" onClick={() => setIsChatOpen(false)}>
           <div className="chat-window" onClick={(e) => e.stopPropagation()}>
             <div className="chat-header">
-              <h4>Ahli Daur Ulang</h4>
+              <h4>Ahli Eco Enzyme</h4>
               <button className="chat-close-btn" onClick={() => setIsChatOpen(false)}>×</button>
             </div>
             <div className="chat-body">
-              {chatMessages.map((msg, index) => (<div key={index} className={`chat-message ${msg.sender}`}>{msg.text}</div>))}
+            {chatMessages.map((msg, index) => (
+    <div key={index} className={`chat-message ${msg.sender}`}>
+      <ReactMarkdown>{msg.text}</ReactMarkdown>
+    </div>
+  ))}
               {isBotTyping && (<div className="chat-message bot typing"><span></span><span></span><span></span></div>)}
             </div>
             <form className="chat-input-form" onSubmit={handleSendMessage}>
               <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} placeholder="Ketik pertanyaanmu..." disabled={isBotTyping} />
-              <button type="submit" disabled={isBotTyping}>Kirim</button>
+              <button type="submit" disabled={isBotTyping}>➤</button>
             </form>
           </div>
         </div>

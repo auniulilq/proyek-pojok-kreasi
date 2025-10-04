@@ -1,213 +1,192 @@
 /* ==================================== */
-/* 1. SETUP & VARIABLES                 */
+/* 1. SETUP & VARIABLES               */
 /* ==================================== */
 :root {
-    --primary-bg: #2E7D32;
-    --primary-bg-transparent: rgba(46, 125, 50, 0.85);
-    --primary-bg-darker: #1B5E20;
-    --primary-text: #FFFFFF;
-    --accent-color: #2E7D32;
-    --hover-bg: rgba(255, 255, 255, 0.15);
-    --active-bg: #FFFFFF;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --font-sans: 'Inter', sans-serif;
+  --primary-bg: #2E7D32;
+  --primary-bg-transparent: rgba(46, 125, 50, 0.85);
+  --primary-bg-darker: #1B5E20;
+  --primary-text: #FFFFFF;
+  --active-bg: #FFFFFF;
+  --hover-bg: rgba(255, 255, 255, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
-  
+
 /* ==================================== */
-/* 2. DESKTOP STYLES (DEFAULT)          */
+/* 2. NAVBAR STYLES                     */
 /* ==================================== */
+
+/* --- Container Utama Navbar --- */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 40px;
-    background: var(--primary-bg-transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: var(--primary-text);
-    box-shadow: 0 2px 8px var(--shadow-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  background: var(--primary-bg-transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--primary-text);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000; /* Z-index dasar */
 }
-  
+
+/* KUNCI #1: Menaikkan z-index navbar saat menu mobile terbuka */
+.navbar.menu-open {
+  z-index: 1100;
+}
+
 .navbar-brand {
-    font-size: 1.5em;
-    font-weight: 700;
-    letter-spacing: 1px;
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
-  
+
+/* --- Menu Navigasi (Desktop) --- */
 .navbar-nav {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-  
+
 .navbar-nav button {
-    all: unset;
-    font-family: var(--font-sans);
-    color: var(--primary-text);
-    font-weight: 500;
-    cursor: pointer;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: background-color 0.3s, color 0.3s;
-}
-  
-.navbar-nav button:not(.nav-close-btn):hover {
-    background-color: var(--hover-bg);
-}
-  
-.navbar-nav button.active {
-    background-color: var(--active-bg);
-    color: var(--accent-color);
-    font-weight: 600;
-}
-  
-.hamburger {
-    display: none;
-    cursor: pointer;
-    background-color: transparent;
-    border: 0;
-    padding: 10px;
-    z-index: 1100;
-}
-  
-/* Sembunyikan tombol 'X' di desktop */
-.nav-close-btn {
-    display: none;
-}
-  
-/* ==================================== */
-/* 3. MOBILE STYLES (< 768px)           */
-/* ==================================== */
-@media (max-width: 768px) {
-    .navbar {
-      padding: 12px 20px;
-    }
-  
-    .navbar-nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100vh;
-      width: 75%;
-      max-width: 280px;
-      background-color: var(--primary-bg-darker);
-      flex-direction: column;
-      justify-content: center;
-      gap: 25px;
-      transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-      z-index: 1050;
-      padding-top: 60px;
-    }
-  
-    .navbar-nav.active {
-      transform: translateX(0);
-    }
-  
-    .hamburger {
-      display: block; 
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    
-    .navbar.menu-open .hamburger {
-      opacity: 0;
-      pointer-events: none;
-      visibility: hidden;
-    }
-  
-    .nav-close-btn {
-      display: block;
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 2.5em;
-      line-height: 1;
-      transition: transform 0.3s ease;
-    }
-  
-    .nav-close-btn:hover {
-      transform: rotate(90deg);
-    }
-  
-    .navbar-nav button:not(.nav-close-btn) {
-      font-size: 1.2em;
-      width: 80%;
-      text-align: center;
-      opacity: 0;
-      transform: translateX(20px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    
-    .navbar-nav.active button:not(.nav-close-btn) {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  
-    .navbar-nav.active button:nth-child(2) { transition-delay: 0.15s; }
-    .navbar-nav.active button:nth-child(3) { transition-delay: 0.25s; }
-}
-  
-/* ==================================== */
-/* 4. HAMBURGER & OVERLAY               */
-/* ==================================== */
-.nav-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1040;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-  
-.nav-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-  
-.hamburger-box {
-    width: 30px;
-    height: 24px;
-    position: relative;
-}
-  
-.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
-    content: "";
-    width: 30px;
-    height: 3px;
-    background-color: var(--primary-text);
-    border-radius: 4px;
-    position: absolute;
-    left: 0;
-    transition: transform 0.3s ease;
-}
-  
-.hamburger-inner {
-    top: 50%;
-    transform: translateY(-50%);
-}
-.hamburger-inner::before { top: -10px; }
-.hamburger-inner::after { bottom: -10px; }
-  
-/* ==================================== */
-/* 5. FIX INTERAKSI BUTTON              */
-/* ==================================== */
-.navbar-nav button {
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
+  all: unset;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  color: var(--primary-text);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 18px;
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .navbar-nav button:hover {
-    background-color: var(--hover-bg);
-    color: #fff;
+  background-color: var(--hover-bg);
+}
+
+.navbar-nav button.active {
+  background-color: var(--active-bg);
+  color: var(--primary-bg);
+  font-weight: 600;
+}
+
+/* --- Tombol Hamburger (Hanya Tampil di Mobile) --- */
+.hamburger {
+  display: none; /* Sembunyi di desktop */
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  padding: 10px;
+  z-index: 100; /* Tidak perlu z-index tinggi di sini */
+}
+
+.hamburger-box {
+  width: 30px;
+  height: 24px;
+  position: relative;
+}
+
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+  content: "";
+  width: 30px;
+  height: 3px;
+  background-color: var(--primary-text);
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-inner { top: 50%; transform: translateY(-50%); }
+.hamburger-inner::before { top: -10px; }
+.hamburger-inner::after { bottom: -10px; }
+
+
+/* ==================================== */
+/* 3. MOBILE & OVERLAY STYLES         */
+/* ==================================== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .hamburger {
+    display: block; /* Tampil di mobile */
+  }
+
+  /* --- Sidebar Menu (Mobile) --- */
+  .navbar-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 75%;
+    max-width: 280px;
+    background-color: var(--primary-bg-darker);
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    /* KUNCI #2: Z-index sidebar harus di atas overlay */
+    z-index: 1050; 
+  }
+
+  .navbar-nav.active {
+    transform: translateX(0);
+  }
+
+  /* --- Tombol di dalam Sidebar --- */
+  .navbar-nav button {
+    font-size: 1.2em;
+    width: 80%;
+    text-align: center;
+    /* KUNCI #3: Sembunyikan default, tampilkan saat .active */
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  
+  /* Aturan ini akan membuat tulisan muncul kembali */
+  .navbar-nav.active button {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Efek animasi berurutan (opsional tapi bagus) */
+  .navbar-nav.active button:nth-of-type(1) { transition-delay: 0.15s; }
+  .navbar-nav.active button:nth-of-type(2) { transition-delay: 0.25s; }
+
+  /* Tombol Close 'X' di dalam Sidebar */
+  .nav-close-btn {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5em;
+    line-height: 1;
+  }
+}
+
+/* --- Lapisan Overlay Gelap --- */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 1040; /* Di bawah sidebar, tapi di atas konten */
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }

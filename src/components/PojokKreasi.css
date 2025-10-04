@@ -1,6 +1,8 @@
-/* Mengimpor font Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* ================================== */
+/* STYLING UTAMA HALAMAN              */
+/* ================================== */
 .pojok-kreasi-container {
   padding: 20px;
   max-width: 1200px;
@@ -14,116 +16,341 @@
   margin-bottom: 30px;
 }
 
-.pojok-kreasi-header h2 { color: #8E44AD; font-size: 2.8em; font-weight: 700; }
-.pojok-kreasi-header p { font-size: 1.1em; color: #6c757d; max-width: 600px; margin: 10px auto; }
-
-/* Filter & Pencarian */
-.filter-controls-card { padding: 25px; margin-bottom: 40px; background-color: #fff; border-radius: 16px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06); }
-.search-bar { width: 100%; margin-bottom: 25px; }
-.search-bar input { width: 100%; padding: 15px 20px; font-size: 1.1em; border-radius: 12px; border: 1px solid #dee2e6; box-sizing: border-box; transition: border-color 0.3s, box-shadow 0.3s; }
-.search-bar input:focus { outline: none; border-color: #8E44AD; box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.15); }
-.filter-group { display: flex; flex-direction: column; gap: 20px; }
-.filter-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.filter-row strong { font-size: 1em; color: #343a40; margin-right: 10px; font-weight: 600; }
-.filter-btn { padding: 8px 18px; border: 1px solid #ced4da; border-radius: 50px; background-color: #fff; color: #495057; font-weight: 500; cursor: pointer; transition: all 0.3s ease; }
-.filter-btn:hover { background-color: #f3e5f5; border-color: #8E44AD; color: #8E44AD; }
-.filter-btn.active { background-color: #8E44AD; border-color: #8E44AD; color: white; box-shadow: 0 3px 8px rgba(142, 68, 173, 0.3); }
-
-/* Desain Kartu Visual */
-.proyek-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-.no-results { text-align: center; grid-column: 1 / -1; font-style: italic; color: #777; padding: 40px; }
-.proyek-card { position: relative; border-radius: 16px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); overflow: hidden; cursor: pointer; height: 350px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
-.proyek-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); }
-.proyek-image-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-.proyek-image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-.proyek-card:hover .proyek-image-container img { transform: scale(1.05); }
-.proyek-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 70%; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); z-index: 1; transition: height 0.4s ease; }
-.proyek-card:hover::after { height: 100%; }
-.proyek-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; color: white; z-index: 2; }
-.proyek-info h3 { margin: 0 0 10px 0; font-size: 1.4em; font-weight: 600; color: #fff; line-height: 1.3; }
-.proyek-tags { display: flex; gap: 8px; position: absolute; bottom: 20px; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
-.proyek-card:hover .proyek-tags { opacity: 1; transform: translateY(0); }
-.tag { padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 500; background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); }
-
-/* Modal & Chatbot */
-.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-.modal-content { background-color: white; border-radius: 15px; width: 90%; max-width: 700px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
-.video-fallback-link { display: block; text-decoration: none; }
-.video-fallback-container { position: relative; width: 100%; height: 350px; background-color: #000; border-radius: 15px 15px 0 0; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-.video-fallback-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: transform 0.3s ease; }
-.video-fallback-link:hover .video-fallback-container img { transform: scale(1.05); }
-.play-button-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px; transition: background-color 0.3s; }
-.video-fallback-link:hover .play-button-overlay { background-color: rgba(142, 68, 173, 0.8); }
-.play-button-overlay svg { display: block; }
-.modal-body { padding: 30px; overflow-y: auto; }
-.modal-body h3 { color: #8E44AD; margin-top: 0; font-size: 1.5em; }
-.modal-details { margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; font-size: 0.9em; color: #555; }
-.modal-details p { margin: 8px 0; }
-.modal-close-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 1.5em; line-height: 35px; text-align: center; z-index: 1; }
-.floating-chat-btn { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(45deg, #9b59b6, #8e44ad); color: white; font-size: 2.2em; border: none; box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4); cursor: pointer; z-index: 999; display: flex; justify-content: center; align-items: center; transition: transform 0.3s ease; animation: pulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1); }
-.floating-chat-btn:hover { transform: scale(1.15); animation: none; }
-@keyframes pulse { 0% { transform: scale(0.95); } 50% { transform: scale(1.05); } 100% { transform: scale(0.95); } }
-
-/* --- PERBAIKAN TAMPILAN CHATBOT --- */
-.chat-modal-overlay { 
-  position: fixed; 
-  top: 0; left: 0; right: 0; bottom: 0; 
-  background-color: rgba(0,0,0,0.5); 
-  display: flex; 
-  justify-content: center; 
-  /* Mengubah alignment agar tidak terpotong keyboard */
-  align-items: flex-start; 
-  padding-top: 5vh;
-  z-index: 1000; 
+.pojok-kreasi-header h2 {
+  color: #1B5E20;
+  font-size: 2.8em;
+  font-weight: 700;
 }
-.chat-window { 
-  width: 90%; 
-  max-width: 450px; 
-  /* Mengubah height menjadi max-height agar fleksibel */
-  max-height: 80vh; 
+
+.pojok-kreasi-header p {
+  font-size: 1.1em;
+  color: #6c757d;
+  max-width: 600px;
+  margin: 10px auto;
+}
+
+/* ================================== */
+/* FILTER & PENCARIAN                 */
+/* ================================== */
+.filter-controls-card {
+  padding: 25px;
+  margin-bottom: 40px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.search-bar {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1.1em;
+  border-radius: 12px;
+  border: 1px solid #dee2e6;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #2E7D32;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-row strong {
+  font-size: 1em;
+  color: #343a40;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border: 1px solid #d0d0d0;
+  border-radius: 50px;
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: #e0e0e0;
+  border-color: #a0a0a0;
+}
+
+.filter-btn.active {
+  background-color: #2E7D32;
+  border-color: #2E7D32;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(46, 125, 50, 0.3);
+}
+
+/* ================================== */
+/* KARTU PROYEK                       */
+/* ================================== */
+.proyek-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.proyek-card {
+  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  height: 350px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.proyek-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.proyek-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.proyek-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.proyek-card:hover .proyek-image-container img {
+  transform: scale(1.05);
+}
+
+.proyek-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  z-index: 1;
+  transition: height 0.4s ease;
+}
+
+.proyek-card:hover::after {
+  height: 100%;
+}
+
+.proyek-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  color: white;
+  z-index: 2;
+}
+
+.proyek-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.proyek-tags {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.proyek-card:hover .proyek-tags {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tag {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(5px);
+}
+
+/* ================================== */
+/* MODAL DETAIL PROYEK                */
+/* ================================== */
+.modal-overlay {
+   position: fixed; 
+   top: 0; 
+   left: 0; 
+   right: 0; 
+   bottom: 0; 
+   background-color: rgba(0, 0, 0, 0.8); 
+   backdrop-filter: blur(5px); 
+   display: flex; 
+   justify-content: flex-start; 
+   z-index: 9000; 
+   animation: fadeIn 0.3s ease; 
+   padding: 9px; 
+   box-sizing: border-box; } 
+.modal-content {
+   position: relative; 
   background-color: white; 
-  border-radius: 15px; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+  border-radius: 16px; 
+  width: 100%; 
+  max-width: 700px; 
+  max-height: 50vh; /* Biar modal nggak lebih tinggi dari layar */ 
+  overflow: hidden; 
   display: flex; 
-  flex-direction: column; 
+  flex-direction: column; /* Supaya body bisa flex-grow */ 
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25); 
+  animation: popIn 0.3s ease forwards; 
+  transform: scale(0.9);
+   opacity: 0; } 
+.video-embed-container { 
+  position: relative; 
+  width: 100%; 
+  padding-bottom: 42.85%; 
+  height: 0; 
+  overflow: hidden; 
+  background-color: #000; 
+  flex-shrink: 0; /* Mencegah video memakan ruang berlebih */ } 
+.video-embed-container iframe { 
+  position: absolute; 
+  top: 0; left: 0; 
+  width: 100%; 
+  height: 100%; 
+  border: 0; 
+  z-index: 2; } 
+.modal-body { 
+  padding: 30px 25px; 
+  line-height: 1.6; 
+  color: #333; /* Kunci agar body bisa scroll */ 
+  overflow-y: auto; 
+  /* flex-grow: 1; }  */
 }
-.chat-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: #8E44AD; color: white; border-radius: 15px 15px 0 0; }
-.chat-header h4 { margin: 0; }
-.chat-close-btn { background: none; border: none; color: white; font-size: 1.5em; cursor: pointer; }
-.chat-body { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-.chat-message { padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.4; }
-.chat-message.user { background-color: #e9d5ff; color: #333; align-self: flex-end; border-bottom-right-radius: 5px; }
-.chat-message.bot { background-color: #f1f3f4; color: #333; align-self: flex-start; border-bottom-left-radius: 5px; }
-.chat-input-form { display: flex; padding: 10px; border-top: 1px solid #eee; }
-.chat-input-form input { flex-grow: 1; border: none; padding: 10px; border-radius: 20px; background-color: #f1f3f4; }
-.chat-input-form input:focus { outline: none; }
-.chat-input-form button { background: #8E44AD; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; margin-left: 10px; cursor: pointer; }
-.chat-message.typing { padding: 15px; display: flex; gap: 5px; align-items: center; }
-.chat-message.typing span { width: 8px; height: 8px; background-color: #999; border-radius: 50%; animation: typing 1s infinite; }
-.chat-message.typing span:nth-child(2) { animation-delay: 0.2s; }
-.chat-message.typing span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.modal-body h3 { 
+  color: #1B5E20; 
+  margin-top: 0; 
+  font-size: 1.7em; 
+  font-weight: 700; 
+  line-height: 1.3; 
+  margin-bottom: 15px; } 
+.modal-body p { 
+  margin-top: 0; 
+  margin-bottom: 5px; 
+  color: #555; } .modal-details { 
+    margin-top: 20px; 
+    padding-top: 20px; 
+    border-top: 1px solid #e9e9e9; 
+    font-size: 0.95em; 
+    color: #555; } 
+    .modal-details p { 
+      margin: 10px 0; } 
+.modal-details strong { 
+  color: #2E7D32; 
+  font-weight: 600; 
+  margin-right: 8px; } 
+.modal-close-btn { 
+  position: absolute; 
+  top: 15px; 
+  right: 15px; 
+  background: rgba(0,0,0,0.6); 
+  color: white; 
+  border: none; 
+  border-radius: 50%; 
+  width: 35px; height: 35px; 
+  cursor: pointer; font-size: 1.5em; 
+  line-height: 35px; text-align: center; 
+  z-index: 10; 
+  transition: transform 0.2s ease, 
+  background-color 0.2s ease; } 
+  .modal-close-btn:hover { 
+    background-color: rgba(0,0,0,0.8); transform: scale(1.1) rotate(90deg); }
+/* ================================== */
+/* CHATBOT & OVERLAY                  */
+/* ================================== */
+.floating-chat-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: #2e7d32;
+  color: white;
+  font-size: 2.2em;
+  border: none;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
+  cursor: pointer;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  animation: pulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
+}
 
-/* === Chat Modal Overlay === */
+.floating-chat-btn:hover {
+  transform: scale(1.15);
+  background-color: #388e3c;
+  animation: none;
+}
+
 .chat-modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
-  align-items: center;   /* <--- selalu center */
-  z-index: 1000;
+  align-items: center;
+  z-index: 10001;
   animation: fadeIn 0.3s ease;
 }
 
-/* === Chat Window === */
 .chat-window {
   width: 90%;
   max-width: 450px;
-  height: 80vh;             /* selalu fix tinggi proporsional */
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border: 1px solid #e0e0e0;
+  max-height: 50vh;
   display: flex;
   flex-direction: column;
   transform: scale(0.9);
@@ -131,30 +358,37 @@
   animation: popIn 0.3s ease forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; } to { opacity: 1; }
-}
-@keyframes popIn {
-  to { opacity: 1; transform: scale(1); }
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #388e3c, #2e7d32);
+  color: white;
+  border-radius: 16px 16px 0 0;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Header */
-.chat-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 15px 20px;
-  background: linear-gradient(135deg,#9b59b6,#8e44ad);
-  color: white;
-  border-radius: 18px 18px 0 0;
+.chat-header h4 {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 600;
 }
-.chat-header h4 { margin: 0; font-size: 1.1em; font-weight: 600; }
+
 .chat-close-btn {
-  background: none; border: none; color: white;
-  font-size: 1.5em; cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
   transition: transform 0.2s;
 }
-.chat-close-btn:hover { transform: rotate(90deg); }
 
-/* Body */
+.chat-close-btn:hover {
+  transform: rotate(90deg);
+}
+
 .chat-body {
   flex-grow: 1;
   padding: 20px;
@@ -162,56 +396,78 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background-color: #fafafa;
+  background-color: #ffffff;
+  justify-content: flex-start;
 }
 
-/* Bubbles */
 .chat-message {
   padding: 10px 15px;
   border-radius: 18px;
-  max-width: 75%;
+  max-width: 85%;
   line-height: 1.4;
   word-wrap: break-word;
   animation: slideUp 0.3s ease;
 }
+
+.chat-message p {
+  margin-top: 0;
+  margin-bottom: 0.75em; /* Beri jarak antar paragraf */
+}
+/* Hapus jarak di paragraf terakhir agar pas */
+.chat-message p:last-child {
+  margin-bottom: 0;
+}
+
+/* Mengatur tampilan daftar (list) */
+.chat-message ul, .chat-message ol {
+  padding-left: 20px; /* Indentasi untuk list */
+  margin-top: 0.5em;
+  margin-bottom: 0.75em;
+}
+
+.chat-message li {
+  margin-bottom: 0.5em; /* Jarak antar item di list */
+}
+
 .chat-message.user {
-  background-color: #dcbefc;
+  background-color: #e8f5e9;
   color: #333;
   align-self: flex-end;
-  border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 4px;
 }
+
 .chat-message.bot {
   background-color: #f1f1f1;
   color: #333;
   align-self: flex-start;
-  border-bottom-left-radius: 6px;
-}
-@keyframes slideUp {
-  from { transform: translateY(8px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  border-bottom-left-radius: 4px;
 }
 
-/* Typing Indicator */
-.chat-message.typing { display: flex; gap: 5px; align-items: center; }
+.chat-message.typing {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .chat-message.typing span {
-  width: 8px; height: 8px;
-  background-color: #999; border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: #999;
+  border-radius: 50%;
   animation: typing 1s infinite;
 }
+
 .chat-message.typing span:nth-child(2) { animation-delay: 0.2s; }
 .chat-message.typing span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
 
-/* Input */
 .chat-input-form {
   display: flex;
   padding: 12px;
   border-top: 1px solid #eee;
-  background: #fff;
+  background: #ffffff;
+  flex-shrink: 0;
 }
+
 .chat-input-form input {
   flex-grow: 1;
   border: none;
@@ -219,48 +475,76 @@
   border-radius: 25px;
   background-color: #f1f3f4;
   font-size: 0.95em;
+  transition: background-color 0.2s;
 }
-.chat-input-form input:focus { outline: none; background-color: #f9f9f9; }
+
+.chat-input-form input:focus {
+  outline: none;
+  background-color: #e9e9e9;
+}
+
 .chat-input-form button {
-  background: #8E44AD;
+  background: #2E7D32;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 42px; height: 42px;
+  width: 42px;
+  height: 42px;
   margin-left: 10px;
   cursor: pointer;
   font-size: 1.1em;
-  display: flex; justify-content: center; align-items: center;
-  transition: background 0.3s;
-}
-.chat-input-form button:hover { background: #732d91; }
-
-/* Styling untuk Tombol Chat Mengambang */
-.floating-chat-btn {
-  position: fixed; /* Membuat tombol tetap di posisi yang sama saat di-scroll */
-  bottom: 25px;
-  right: 25px;
-  width: 60px;
-  height: 60px;
-  background-color: #2e7d32; /* Warna hijau yang sama dengan navbar */
-  color: white;
-  border-radius: 50%; /* Membuatnya bulat sempurna */
-  border: none;
-  font-size: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 999; /* Memastikan tombol ada di atas konten lain */
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: background-color 0.3s;
 }
 
-.floating-chat-btn:hover {
-  transform: scale(1.1); /* Sedikit membesar saat disentuh mouse */
-  background-color: #388e3c;
+.chat-input-form button:hover {
+  background: #1B5E20;
 }
-/* Responsive */
-@media (max-width: 600px) {
-  .chat-window { width: 95%; height: 75vh; }
+
+/* ================================== */
+/* ANIMASI & RESPONSIVE               */
+/* ================================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(0.95); }
+}
+
+@media (max-width: 768px) { 
+  .modal-content { max-height: 90vh; /* tetap tinggi penuh layar */ 
+    max-width: 95vw; /* hampir selebar layar */ } 
+  .modal-body { 
+    padding: 20px 25px; } 
+    .modal-body h3 { font-size: 1.4em; } 
+    .modal-body p, 
+    .modal-details { font-size: 0.9em; line-height: 1.5; } }

@@ -9,7 +9,7 @@ export const proyekList = [
     durasi: "Sekitar 19 detik",
     kategori: "Plastik",
     gambar: "/images/keranjang-botol.png",
-    videoUrl: "https://youtube.com/shorts/YYp1e0Sq9QM?si=GZa6cuSxn-pa4NU8"
+    videoUrl: "https://youtube.com/shorts/YYp1e0Sq9QM?si=l5Ag9xGhOKRJmXb7"
   },
   {
     id: 11,
