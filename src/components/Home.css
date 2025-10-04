@@ -1,0 +1,287 @@
+/* --- Global Reset & Container --- */
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+/* --- 1. Hero Section Styling --- */
+.hero-section {
+    background: linear-gradient(135deg, #e6f9e6, #ccf0cc); /* Warna hijau muda yang lembut */
+    padding: 60px 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 50, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.hero-section h1 {
+    font-size: 2.8rem;
+    color: #00796b; /* Hijau gelap */
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-section .subtitle {
+    font-size: 1.15rem;
+    color: #4a4a4a;
+    max-width: 750px;
+    margin: 0 auto 30px auto;
+}
+
+/* CTA Button */
+.cta-button {
+    background-color: #4CAF50; /* Hijau kuat */
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.cta-button:hover {
+    background-color: #66BB6A;
+    transform: translateY(-2px); /* Efek Interaktif */
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+
+.secondary-cta {
+    background-color: #00796b;
+    margin-top: 20px;
+}
+
+.secondary-cta:hover {
+    background-color: #004d40;
+}
+
+
+/* --- 2. Features Section (Kartu) --- */
+.features-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #00796b;
+    margin-bottom: 30px;
+}
+
+/* Responsive Grid untuk Kartu */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.feature-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi Interaktif */
+    border-top: 5px solid transparent;
+}
+
+/* Efek Interaktif Hover pada Kartu */
+.feature-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Penanda Warna Kartu */
+.kreasi-card {
+    border-top-color: #ff9800; /* Orange/Kuning untuk Kreasi */
+}
+
+.ecoenzyme-card {
+    border-top-color: #8bc34a; /* Hijau muda untuk Eco Enzyme */
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.card-link {
+    font-weight: bold;
+    color: #00796b;
+    display: block;
+    margin-top: 15px;
+    transition: color 0.2s;
+}
+
+.feature-card:hover .card-link {
+    color: #4CAF50; /* Ganti warna link saat hover kartu */
+}
+
+/* --- NEW: Impact Section (Edukasi) --- */
+.impact-section {
+    text-align: center;
+    background-color: #f1f8e9; /* Hijau super muda, hampir putih */
+    padding: 50px 20px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+}
+
+.impact-section h2 {
+    color: #388e3c; /* Hijau sedang */
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.impact-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.impact-item {
+    flex: 1;
+    max-width: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.impact-item:hover {
+    transform: scale(1.03);
+}
+
+.impact-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #004d40; /* Hijau sangat gelap */
+    margin-bottom: 10px;
+}
+
+.impact-item p {
+    color: #555;
+    font-size: 1rem;
+}
+
+
+/* --- 3. Chat Promo Section --- */
+.chat-promo-section {
+    background-color: #e3f2fd; /* Biru muda untuk menonjolkan AI */
+    padding: 40px 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0, 100, 200, 0.1);
+}
+
+.chat-promo-content h3 {
+    color: #1e88e5; /* Biru cerah */
+    font-size: 1.8rem;
+    margin-top: 10px;
+}
+
+.chat-promo-content p {
+    color: #555;
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 10px auto 0;
+}
+
+.chat-icon {
+    font-size: 3rem;
+    display: inline-block;
+    animation: bounce 2s infinite; /* Efek Interaktif: Animasi */
+}
+
+/* Keyframe untuk animasi Chat Icon */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* --- Divider --- */
+.divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 121, 107, 0.75), rgba(0, 0, 0, 0));
+    margin: 40px 0;
+}
+
+/* --- MEDIA QUERIES (Responsif) --- */
+
+/* Tablet & Mobile (Layar kecil hingga 768px) */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 15px;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section .subtitle {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+
+    .card-grid {
+        /* Grid akan otomatis ke 1 kolom jika layar terlalu sempit */
+        gap: 20px;
+    }
+    
+    .feature-card {
+        padding: 25px;
+    }
+    
+    .chat-promo-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    /* Responsive Impact Section: Tumpuk menjadi kolom */
+    .impact-grid {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .impact-item {
+        max-width: 100%;
+    }
+}
